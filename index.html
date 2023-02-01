@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human or Robot </title>
+   <link rel="stylesheet" href="style.css"></style>
+   <style>#one{
+    display: none;
+   }
+
+.userr{
+    display: flex;
+    display: inline;
+    flex-direction: row;
+}
+#twoimg{
+    display: none;
+}
+#tokenn1{
+    display: none;
+}
+#diceimage{
+display: none;
+}
+
+#form1{
+    display: none;
+
+}
+
+img{
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+}
+.container{
+    background-color: aquamarine;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+button {
+   margin: 20px;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <img class="imgs" src="a1.jpg" id="i1" >
+        <img class="imgs" src="a2.jpg" id="i2" >
+        <img class="imgs" src="a3.jpg" id="i3" > 
+        <img class="imgs" src="a4.jpg" id="i4">
+    </div>
+    <div id =signupform></div>
+    <div id="form1">
+        <form id="form">
+        <fieldset>
+            <legend>Registeration</legend>
+            <div>
+                <label for="userName">User name:</label>
+                <input id="userName" type="text" required>
+            </div>
+            <div>
+                <label for="FullName">Full name :</label>
+                <input id="firstName" type="text" required>
+            </div>
+            <div>
+                <label for="Email">Email &nbsp;&nbsp;&nbsp; :</label>
+                <input id="lastName" type="email" required>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </fieldset>
+<!-- for image 1 -->
+        <script>
+            
+            let img1=document.getElementById('i1')
+            img1.addEventListener("click" ,signup)
+
+            function signup(){
+                let form1=document.getElementById('form1').style.display="inline"
+                let x=1;
+            }                   
+
+            const form=document.getElementById('form')
+                const userName=document.getElementById('userName')
+                const firstName=document.getElementById('firstName')
+                const lastName=document.getElementById('lastName')
+
+            form.addEventListener('submit', function(e){
+            e.preventDefault();
+            const userNameValue = userName.value;
+            const firstNameValue = firstName.value;
+            const lastNameValue = lastName.value;
+            localStorage.setItem('user-name',userNameValue);
+            localStorage.setItem('first-name',firstNameValue);
+            localStorage.setItem('last-name',lastNameValue);
+            form.style.display='none'
+           
+    
+            
+            }) 
+        </script></div>
+        
+<!-- for image2 -->
+
+        <div class="userr" >
+            <div id="one">
+            <h1>Welcome </h1>
+            <div>User Name: <span id='user-name'></span></div>
+            <br>
+            <div>First Name: <span id='first-name'></span></div><br>
+            <div>Last Name: <span id='last-name'></span></div>
+        </div>
+        <script>
+            let img2=document.getElementById('i2')
+            
+            img2.addEventListener("click" , userdetails)
+            
+            function userdetails(){
+                const userName11 =localStorage.getItem('user-name');
+            const firstName11 =localStorage.getItem('first-name');
+            const lastName11 = localStorage.getItem('last-name');
+            
+            document.getElementById('user-name').textContent=userName11;
+            document.getElementById('first-name').textContent=firstName11;
+            document.getElementById('last-name').textContent=lastName11;
+                let x=document.getElementById('one').style.display='inline'
+                document.getElementById('form1').style.display="none"
+            }
+           
+        </script>
+
+    
+        <div id="two"><img src="d1.jpg" id="twoimg"></div>
+    
+        <div class="dice">
+            <label id="xlabel"></label><br>
+            <label id="xlabel1"></label>
+        </div>
+        <div id="token1"><img src="congrats.jpg "id="tokenn1" alt=""></div>
+        <script>
+            var attempt=1;
+            let img3=document.getElementById('i3')
+            img3.addEventListener("click" ,dicegame)
+            function dicegame(){
+                
+                if(attempt<=2){
+                    let twoimg=document.getElementById('twoimg').style.display="inline"
+    
+                let im=document.getElementById('twoimg')
+                im.addEventListener('click',diceimage)
+                let sum=0;
+                let score=0;
+                var count =0;
+                var randomsum=0;
+                document.getElementById("diceimage")
+                im.addEventListener('onclick',diceimage)
+                function diceimage() {
+                if(count<3){
+                let sum=0;
+                sum = Math.floor(Math.random() * 6) + 1;
+                document.getElementById("xlabel").innerHTML = sum;
+            
+     
+                count++
+                score=sum+score}
+                if(count==3) {
+                    if(score>10){
+                    document.getElementById("xlabel").innerHTML = "Your Score"+" "+score;
+                    document.getElementById("xlabel1").innerHTML = "Please Click on 4th Image to generate token"; 
+                    
+                        let img4=document.getElementById('i4')
+                        img4.addEventListener("click" ,gettoken)
+                        function gettoken(){
+                            document.getElementById("xlabel1").innerHTML =""
+                            document.getElementById("xlabel").innerHTML = "";
+                            
+                            let token1=document.getElementById('token1')
+                            let tok=generatetoken();
+                            token1.append("Token = ",tok)
+                            document.getElementById('tokenn1').style.display='inline'
+                        }
+    
+                        function generatetoken(){
+                    
+                    let capital_digit="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    let small_digit="abcdefghijklmnopqrstuvwxyz"
+                    let digit="0123456789"
+                    let special="!@$#$%^&*()_+"
+                    let characters= capital_digit  +  small_digit + digit + special
+    
+                    let token=""
+                    for(let i=0;i<12;i++){
+                        let random=Math.floor(Math.random()*characters.length)
+                        token=token+characters[random]
+                    }
+                    return token
+                }
+    
+                    }
+                else{
+                    // document.getElementById("xlabel").innerHTML = "Your Score is less please click on 3rd image"+" "+score;
+                    alert(' Try again one attempt left \n Your Score'+ score)
+                    document.getElementById('twoimg').style.display="none"
+                    attempt++;
+                    score=0
+                    count=0
+                }
+                }
+            }
+                }}
+        </script>
+
+
+<script src="script.js"></script>
+</body>
+</html>
